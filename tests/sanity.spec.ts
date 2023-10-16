@@ -1,22 +1,39 @@
-import { test, expect } from '@playwright/test';
+import { test } from "@playwright/test";
+import LoginPage from "../pages/loginPage";
+import UserCredentials from "../helpers/UserCredentials";
+import ApplicationURL from "../helpers/ApplicationURL";
 
-test('sanity test', async ({ page }) => {
-  await page.goto('https://www.saucedemo.com');
-  await page.locator('[data-test="username"]').click();
-  await page.locator('[data-test="username"]').fill('standard_user');
-  await page.locator('[data-test="username"]').press('Tab');
-  await page.locator('[data-test="password"]').fill('secret_sauce');
-  await page.locator('[data-test="password"]').press('Enter');
-  await page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]').click();
-  await page.locator('a').filter({ hasText: '1' }).click();
+test("sanity test", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.loginToApplication(
+    UserCredentials.STANDARD_USER,
+    UserCredentials.CORRECT_PASSWORD
+  );
+
+  loginPage.validatePageUrl(`${ApplicationURL.BASE_URL}/inventory.html`);
+
+  await page
+    .locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]')
+    .click();
+
+  await page.locator("a").filter({ hasText: "1" }).click();
   await page.locator('[data-test="checkout"]').click();
   await page.locator('[data-test="firstName"]').click();
-  await page.locator('[data-test="firstName"]').fill('keinar');
-  await page.locator('[data-test="firstName"]').press('Tab');
-  await page.locator('[data-test="lastName"]').fill('elkayam');
-  await page.locator('[data-test="lastName"]').press('Tab');
-  await page.locator('[data-test="postalCode"]').fill('123');
+  await page.locator('[data-test="firstName"]').fill("keinar");
+  await page.locator('[data-test="firstName"]').press("Tab");
+  await page.locator('[data-test="lastName"]').fill("elkayam");
+  await page.locator('[data-test="lastName"]').press("Tab");
+  await page.locator('[data-test="postalCode"]').fill("123");
   await page.locator('[data-test="continue"]').click();
   await page.locator('[data-test="finish"]').click();
   await page.locator('[data-test="back-to-products"]').click();
+});
+
+test("negative login test", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.loginToApplication(
+    UserCredentials.STANDARD_USER,
+    UserCredentials.INCORRECT_PASSWORD
+  );
 });
