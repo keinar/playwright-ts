@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
-import LoginPage from "../pages/loginPage";
 import UserCredentials from "../helpers/UserCredentials";
 import ApplicationURL from "../helpers/ApplicationURL";
+import LoginPage from "../pages/LoginPage";
 
 test("sanity test", async ({ page }) => {
   const loginPage = new LoginPage(page);
