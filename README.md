@@ -32,7 +32,7 @@ It includes various examples and workflows that demonstrate how to leverage Play
 
 4. Run the tests:
    ```bash
-   npm test
+   npx playwright test
    ```
 
 ## Contributing
