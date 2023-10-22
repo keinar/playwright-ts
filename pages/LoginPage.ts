@@ -1,16 +1,21 @@
-import { Locator, Page, expect } from "@playwright/test";
+import { Locator, Page, expect, test } from "@playwright/test";
 import ApplicationURL from "../helpers/ApplicationURL";
+import { ErrorMessages } from "../helpers/ErrorMessage";
+import { BasePage } from "./BasePage";
 
-export default class LoginPage {
-  userName_field: Locator;
-  password_field: Locator;
-  submit_button: Locator;
+export default class LoginPage extends BasePage{
+  private userName_field: Locator;
+  private password_field: Locator;
+  private submit_button: Locator;
+  private error_message: Locator;
 
 
   constructor(protected page: Page) {
+    super(page);
     this.userName_field = this.page.locator('[data-test="username"]');
     this.password_field = this.page.locator('[data-test="password"]');
     this.submit_button = this.page.locator('[data-test="login-button"]');
+    this.error_message = this.page.locator('[data-test="error"]');
   }
 
   public async loginToApplication(username: string, password: string, url = ApplicationURL.BASE_URL) {
@@ -22,6 +27,11 @@ export default class LoginPage {
   }
 
   public async validatePageUrl(url: string){
+    await test.step(`Validate that a correct value of the page URL is ${url}`,async () => {});
     await expect(this.page).toHaveURL(url, {timeout:10000});
+  }
+
+  public async validateErrorMessage(error_message : ErrorMessages){
+    await expect(this.error_message).toContainText(error_message.valueOf());
   }
 }

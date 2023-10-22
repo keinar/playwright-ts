@@ -1,7 +1,13 @@
 import { test } from "@playwright/test";
 import UserCredentials from "../helpers/UserCredentials";
 import ApplicationURL from "../helpers/ApplicationURL";
-import LoginPage from "../pages/LoginPage";
+import ProductsPage from "../pages/ProductsPage";
+import LoginPage from "../pages/loginPage";
+
+test.describe("Sanity tests",async () => {
+  test.beforeEach(async () => {
+      
+  })
 
 test("sanity test", async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -34,6 +40,11 @@ test("negative login test", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.loginToApplication(
     UserCredentials.STANDARD_USER,
-    UserCredentials.INCORRECT_PASSWORD
+    UserCredentials.CORRECT_PASSWORD
   );
+  const productsPage = new ProductsPage(page);
+  await productsPage.validatePageUrl(ApplicationURL.INVENTORY_PAGE_URL);
+  await productsPage.validateTitle('Products');
 });
+
+})
