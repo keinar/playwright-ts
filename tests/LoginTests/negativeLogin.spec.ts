@@ -22,7 +22,7 @@ test.describe("Navigation login scenarios", () => {
   test("Login with incorrect username", async ({ page }) => {
     await loginPage.loginToApplication(
       process.env.STANDARD_USER,
-      process.env.INCORRECT_USER
+      process.env.INCORRECT_PASSWORD
     );
     await loginPage.validateErrorMessage(
       ErrorMessages.INCORRECT_USERNAME_MESSAGE
