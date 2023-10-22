@@ -1,5 +1,4 @@
 import { test } from "@playwright/test";
-import UserCredentials from "../../helpers/UserCredentials";
 import { ErrorMessages } from "../../helpers/ErrorMessage";
 import ApplicationURL from "../../helpers/ApplicationURL";
 import LoginPage from "../../pages/LoginPage";
@@ -13,8 +12,8 @@ test.describe("Navigation login scenarios", () => {
 
   test("Login with loked out user", async ({ page }) => {
     await loginPage.loginToApplication(
-      UserCredentials.LOCKED_OUT_USER,
-      UserCredentials.CORRECT_PASSWORD
+      process.env.LOCKED_OUT_USER,
+      process.env.CORRECT_PASSWORD
     );
     await loginPage.validateErrorMessage(ErrorMessages.LOCKED_OUT_MESSAGE);
     await loginPage.validatePageUrl(ApplicationURL.BASE_URL);
@@ -22,8 +21,8 @@ test.describe("Navigation login scenarios", () => {
 
   test("Login with incorrect username", async ({ page }) => {
     await loginPage.loginToApplication(
-      UserCredentials.STANDARD_USER,
-      UserCredentials.INCORRECT_USER
+      process.env.STANDARD_USER,
+      process.env.INCORRECT_USER
     );
     await loginPage.validateErrorMessage(
       ErrorMessages.INCORRECT_USERNAME_MESSAGE
@@ -33,8 +32,8 @@ test.describe("Navigation login scenarios", () => {
 
   test("Login with incorrect password", async ({ page }) => {
     await loginPage.loginToApplication(
-      UserCredentials.STANDARD_USER,
-      UserCredentials.INCORRECT_PASSWORD
+      process.env.STANDARD_USER,
+      process.env.INCORRECT_PASSWORD
     );
     await loginPage.validateErrorMessage(
       ErrorMessages.INCORRECT_USERNAME_MESSAGE

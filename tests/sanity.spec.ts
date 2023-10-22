@@ -1,5 +1,4 @@
 import { test } from "@playwright/test";
-import UserCredentials from "../helpers/UserCredentials";
 import ApplicationURL from "../helpers/ApplicationURL";
 import ProductsPage from "../pages/ProductsPage";
 import LoginPage from "../pages/LoginPage";
@@ -15,8 +14,8 @@ test.describe("Sanity tests", async () => {
 
   test("sanity test", async ({ page }) => {
     await loginPage.loginToApplication(
-      UserCredentials.STANDARD_USER,
-      UserCredentials.CORRECT_PASSWORD
+      process.env.STANDARD_USER,
+      process.env.CORRECT_PASSWORD
     );
 
     await loginPage.validatePageUrl(ApplicationURL.INVENTORY_PAGE_URL);
@@ -40,8 +39,8 @@ test.describe("Sanity tests", async () => {
 
   test("negative login test", async ({ page }) => {
     await loginPage.loginToApplication(
-      UserCredentials.STANDARD_USER,
-      UserCredentials.CORRECT_PASSWORD
+      process.env.STANDARD_USER,
+      process.env.CORRECT_PASSWORD
     );
     await productsPage.validatePageUrl(ApplicationURL.INVENTORY_PAGE_URL);
     await productsPage.validateTitle("Products");

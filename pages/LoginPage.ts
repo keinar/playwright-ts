@@ -8,6 +8,8 @@ export default class LoginPage extends BasePage{
   private password_field: Locator;
   private submit_button: Locator;
   private error_message: Locator;
+  private default_username = process.env.STANDARD_USER as string;
+  private default_password = process.env.CORRECT_PASSWORD as string;
 
 
   constructor(protected page: Page) {
@@ -18,7 +20,7 @@ export default class LoginPage extends BasePage{
     this.error_message = this.page.locator('[data-test="error"]');
   }
 
-  public async loginToApplication(username: string, password: string, url = ApplicationURL.BASE_URL) {
+  public async loginToApplication(username = this.default_username, password = this.default_password, url = ApplicationURL.BASE_URL) {
     await this.page.goto(url);
     await this.validatePageUrl(ApplicationURL.BASE_URL);
     await this.userName_field.fill(username);
