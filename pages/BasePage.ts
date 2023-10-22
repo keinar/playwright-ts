@@ -8,7 +8,7 @@ export abstract class BasePage {
     this.pageTitleElement = this.page.locator('[class="title"]');
   }
 
-  public async validateTitle(title: string) {
+  public async validatePageTitle(title: string) {
     await this.validateElementText(this.pageTitleElement, title);
   }
 
@@ -21,4 +21,11 @@ export abstract class BasePage {
     await test.step(`Validate that a correct element text is ${expectedText}`,async () => {});
     await expect(element).toContainText(expectedText);
   }
+
+  protected async clickElement(element: Locator) {
+    await test.step(`Clicking the '${element}' element`, async() => {
+        await element.click();
+    })
+}
+
 }

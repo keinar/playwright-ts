@@ -6,6 +6,7 @@ import LoginPage from "../pages/LoginPage";
 test.describe("Sanity tests", async () => {
   let loginPage: LoginPage;
   let productsPage: ProductsPage;
+  const products = ['Sauce Labs Backpack', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie'];
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -19,12 +20,15 @@ test.describe("Sanity tests", async () => {
     );
 
     await loginPage.validatePageUrl(ApplicationURL.INVENTORY_PAGE_URL);
+    await productsPage.validatePageTitle("Products");
 
-    await page
-      .locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]')
-      .click();
+    await productsPage.ChooseProductByTitle(products[0]);
+    await productsPage.ChooseProductByTitle(products[1]);
+    await productsPage.ChooseProductByTitle(products[2]);
+    await productsPage.validateNumberOfItems("3");
+    await productsPage.GoCart;
 
-    await page.locator("a").filter({ hasText: "1" }).click();
+    await page.locator("a").filter({ hasText: "3" }).click();
     await page.locator('[data-test="checkout"]').click();
     await page.locator('[data-test="firstName"]').click();
     await page.locator('[data-test="firstName"]').fill("keinar");
@@ -43,6 +47,6 @@ test.describe("Sanity tests", async () => {
       process.env.CORRECT_PASSWORD
     );
     await productsPage.validatePageUrl(ApplicationURL.INVENTORY_PAGE_URL);
-    await productsPage.validateTitle("Products");
+    await productsPage.validatePageTitle("Products");
   });
 });

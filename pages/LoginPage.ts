@@ -6,7 +6,7 @@ import { BasePage } from "./BasePage";
 export default class LoginPage extends BasePage{
   private userName_field: Locator;
   private password_field: Locator;
-  private submit_button: Locator;
+  private login_button: Locator;
   private error_message: Locator;
   private default_username = process.env.STANDARD_USER as string;
   private default_password = process.env.CORRECT_PASSWORD as string;
@@ -16,7 +16,7 @@ export default class LoginPage extends BasePage{
     super(page);
     this.userName_field = this.page.locator('[data-test="username"]');
     this.password_field = this.page.locator('[data-test="password"]');
-    this.submit_button = this.page.locator('[data-test="login-button"]');
+    this.login_button = this.page.locator('[data-test="login-button"]');
     this.error_message = this.page.locator('[data-test="error"]');
   }
 
@@ -25,7 +25,7 @@ export default class LoginPage extends BasePage{
     await this.validatePageUrl(ApplicationURL.BASE_URL);
     await this.userName_field.fill(username);
     await this.password_field.fill(password);
-    await this.submit_button.click();
+    await this.clickElement(this.login_button);
   }
 
   public async validatePageUrl(url: string){
