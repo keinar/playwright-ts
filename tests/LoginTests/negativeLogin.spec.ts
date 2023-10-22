@@ -1,8 +1,8 @@
 import { test } from "@playwright/test";
-import LoginPage from "../../pages/loginPage";
 import UserCredentials from "../../helpers/UserCredentials";
 import { ErrorMessages } from "../../helpers/ErrorMessage";
 import ApplicationURL from "../../helpers/ApplicationURL";
+import LoginPage from "../../pages/LoginPage";
 
 test.describe("Navigation login scenarios", () => {
   let loginPage: LoginPage;

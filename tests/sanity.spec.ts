@@ -2,7 +2,7 @@ import { test } from "@playwright/test";
 import UserCredentials from "../helpers/UserCredentials";
 import ApplicationURL from "../helpers/ApplicationURL";
 import ProductsPage from "../pages/ProductsPage";
-import LoginPage from "../pages/loginPage";
+import LoginPage from "../pages/LoginPage";
 
 test.describe("Sanity tests", async () => {
   let loginPage: LoginPage;
