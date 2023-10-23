@@ -27,14 +27,10 @@ test.describe("Sanity tests", async () => {
     await productsPage.ChooseProductByTitle(products[2]);
     await productsPage.validateNumberOfItems("3");
     await productsPage.GoCart;
-
     await page.locator("a").filter({ hasText: "3" }).click();
     await page.locator('[data-test="checkout"]').click();
-    await page.locator('[data-test="firstName"]').click();
     await page.locator('[data-test="firstName"]').fill("keinar");
-    await page.locator('[data-test="firstName"]').press("Tab");
     await page.locator('[data-test="lastName"]').fill("elkayam");
-    await page.locator('[data-test="lastName"]').press("Tab");
     await page.locator('[data-test="postalCode"]').fill("123");
     await page.locator('[data-test="continue"]').click();
     await page.locator('[data-test="finish"]').click();
